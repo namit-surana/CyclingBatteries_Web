@@ -20227,3 +20227,32 @@ disabled look for disabled choices in the results dropdown
 .modal-body {
 	padding: 29px 30px 35px;
 }
+.news-ticker-container {
+    width: 100%;
+    overflow: hidden;
+    background-color: #f2f2f2;
+    color: black;
+    padding: 10px 0;
+}
+
+.news-ticker {
+    display: flex;
+    white-space: nowrap;
+    animation: scroll 20s linear infinite;
+}
+
+.news-item {
+    margin-right: 50px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+/* Animation */
+@keyframes scroll {
+    0% {
+        transform: translateX(100%);
+    }
+    100% {
+        transform: translateX(-100%);
+    }
+}
