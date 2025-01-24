@@ -1322,6 +1322,7 @@
 				}
 			}
 		}
+		
 
 		// particlesJs
 		if ( plugins.particlesJs.length ) {

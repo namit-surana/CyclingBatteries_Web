@@ -15,6 +15,13 @@
     <style>.ie-panel{display: none;background: #212121;padding: 10px 0;box-shadow: 3px 3px 5px 0 rgba(0,0,0,.3);clear: both;text-align:center;position: relative;z-index: 1;} html.ie-10 .ie-panel, html.lt-ie-10 .ie-panel {display: block;}</style>
   </head>
   <body>
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3.11.0/dist/email.min.js"></script>
+
+<script>
+  (function () {
+    emailjs.init("eK7PvmbV5VaRwyIsC"); // Replace with your EmailJS Public Key
+  })();
+</script>
     <div class="ie-panel"><a href="http://windows.microsoft.com/en-US/internet-explorer/"><img src="images/ie8-panel/warning_bar_0000_us.jpg" height="42" width="820" alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today."></a></div>
     <div class="preloader">
       <div class="preloader-body">
@@ -673,48 +680,83 @@
         </div>
       </footer>
 
-      <div class="modal fade" id="modalCta" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h4>Contact Us</h4>
-              <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+   <!-- Contact Form -->
+<div class="modal fade" id="modalCta" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4>Contact Us</h4>
+        <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+      </div>
+      <div class="modal-body">
+        <form id="contactForm">
+          <div class="row row-14 gutters-14">
+            <div class="col-12">
+              <div class="form-wrap">
+                <input class="form-input" id="contact-modal-name" type="text" name="name" required>
+                <label class="form-label" for="contact-modal-name">Your Name</label>
+              </div>
             </div>
-            <div class="modal-body">
-              <form class="rd-form rd-form-variant-2 rd-mailform" data-form-output="form-output-global" data-form-type="contact-modal" method="post" action="bat/rd-mailform.php">
-                <div class="row row-14 gutters-14">
-                  <div class="col-12">
-                    <div class="form-wrap">
-                      <input class="form-input" id="contact-modal-name" type="text" name="name" data-constraints="@Required">
-                      <label class="form-label" for="contact-modal-name">Your Name</label>
-                    </div>
-                  </div>
-                  <div class="col-12">
-                    <div class="form-wrap">
-                      <input class="form-input" id="contact-modal-email" type="email" name="email" data-constraints="@Email @Required">
-                      <label class="form-label" for="contact-modal-email">E-mail</label>
-                    </div>
-                  </div>
-                  <div class="col-12">
-                    <div class="form-wrap">
-                      <input class="form-input" id="contact-modal-phone" type="text" name="phone" data-constraints="@Numeric">
-                      <label class="form-label" for="contact-modal-phone">Phone</label>
-                    </div>
-                  </div>
-                  <div class="col-12">
-                    <div class="form-wrap">
-                      <label class="form-label" for="contact-modal-message">Message</label>
-                      <textarea class="form-input textarea-lg" id="contact-modal-message" name="message" data-constraints="@Required"></textarea>
-                    </div>
-                  </div>
-                </div>
-                <button class="button button-primary button-pipaluk" type="submit">Send Message</button>
-              </form>
+            <div class="col-12">
+              <div class="form-wrap">
+                <input class="form-input" id="contact-modal-email" type="email" name="email" required>
+                <label class="form-label" for="contact-modal-email">E-mail</label>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="form-wrap">
+                <input class="form-input" id="contact-modal-phone" type="text" name="phone">
+                <label class="form-label" for="contact-modal-phone">Phone</label>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="form-wrap">
+                <label class="form-label" for="contact-modal-message">Message</label>
+                <textarea class="form-input textarea-lg" id="contact-modal-message" name="message" required></textarea>
+              </div>
             </div>
           </div>
-        </div>
+          <button class="button button-primary button-pipaluk" id="sendMessageButton" type="button">Send Message</button>
+        </form>
       </div>
     </div>
+  </div>
+</div>
+<script>
+  document.getElementById("sendMessageButton").addEventListener("click", function () {
+    const name = document.getElementById("contact-modal-name").value;
+    const email = document.getElementById("contact-modal-email").value;
+    const phone = document.getElementById("contact-modal-phone").value;
+    const message = document.getElementById("contact-modal-message").value;
+
+    // Validate required fields
+    if (!name || !email || !message) {
+      alert("Please fill in all required fields.");
+      return;
+    }
+
+    // Send email using EmailJS
+    emailjs
+      .send("service_kldw24c","template_su2evht", {
+        name: name,
+        email: email,
+        phone: phone,
+        message: message,
+      })
+      .then(
+        (response) => {
+          alert("Message sent successfully!");
+          document.getElementById("contactForm").reset(); // Reset the form
+        },
+        (error) => {
+          console.error("Failed to send the message:", error);
+          alert("Failed to send the message. Please try again later.");
+        }
+      );
+  });
+</script>
+
+
     <!-- Global Mailform Output-->
     <div class="snackbars" id="form-output-global"></div>
     <!-- Javascript-->
