@@ -20228,8 +20228,8 @@ disabled look for disabled choices in the results dropdown
 	padding: 29px 30px 35px;
 }
 .news-ticker-container {
-    width: 120%;
-    overflow: hidden;
+    width: 100%;
+    overflow: none;
     background-color: #f2f2f2;
     color: black;
     padding: 10px 0;
@@ -20256,3 +20256,10 @@ disabled look for disabled choices in the results dropdown
         transform: translateX(-100%);
     }
 }
+@media screen and (max-width: 768px) {
+	.swiper-slide-caption h1 {
+	  font-size: 18px !important;  /* Reduce font size for smaller screens */
+	  text-align: center;
+	}
+  }
+  
